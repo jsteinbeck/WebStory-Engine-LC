@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<ws>
+    <settings>
+        <stage width="800px" height="360px" id="Stage" create="yes" center="yes" />
+        <autosave mode="line" />
+    </settings>
+    <assets>
+        <asset name="tb_main" type="textbox" behaviour="adv" cssid="MainTb" names="no" 
+            x="10px" y="300px" width="780px" height="50px"></asset>
+        <asset name="tb_nvl" type="textbox" behaviour="nvl" cssid="NvlTb" names="no"></asset>
+        <asset name="ambience" type="audio" loop="true" fade="false" autopause="false">
+            <track title="birds">
+                <source href="assets/audio/birds.mp3" type="mp3" />
+                <source href="assets/audio/birds.ogg" type="ogg" />
+            </track>
+        </asset>
+        <asset name="sounds" type="audio" loop="false" fade="false" autopause="false">
+            <track title="bip">
+                <source href="assets/audio/bip.mp3" type="mp3" />
+                <source href="assets/audio/bip.ogg" type="ogg" />
+            </track>
+        </asset>
+        <asset name="n" type="character" textbox="tb_main"></asset>
+        <asset name="backgrounds" type="imagepack" x="0" y="0" z="0">
+            <image src="assets/images/daytime_clouds_A_01.jpg" name="clouds01" />
+            <image src="assets/images/Evening_clouds_C_01.jpg" name="clouds02" />
+            <image src="assets/images/Rainbow_A_01.jpg" name="rainbow" />
+        </asset>
+        <asset name="bgchanger" type="animation">
+            <group>
+                <do asset="backgrounds" action="set" image="rainbow" duration="5000"/>
+            </group>
+            <group>
+                <do asset="backgrounds" action="set" image="clouds01" duration="5000"/>
+            </group>
+            <group>
+                <do asset="backgrounds" action="set" image="clouds02" duration="5000"/>
+            </group>
+        </asset>
+        <asset name="anim" type="animation">
+            <group>
+                <do asset="sounds" action="set" track="bip" />
+                <do asset="sounds" action="play" />
+                <do asset="backgrounds" action="move" x="-300px" y="-300px" duration="2000" easing="easeOutBounce" />
+            </group>
+            <group>
+                <do asset="sounds" action="play" />
+                <transform asset="backgrounds" property="left" from="-300" to="0" unit="px" duration="2000" easing="easeOutBounce" />
+            </group>
+            <group>
+                <do asset="backgrounds" action="move" x="-300px" y="0px" duration="2000" easing="easeOutBounce" />
+            </group>
+            <group>
+                <do asset="sounds" action="play" />
+                <transform asset="backgrounds" property="left" from="-300" to="0" unit="px" duration="2000" easing="easeInQuint" />
+            </group>
+        </asset>
+    </assets>
+    <scenes>
+        <scene id="start">
+            <line s="n" stop="false">
+                Welcome to the WebStory Engine demo!
+            </line>
+            <do asset="backgrounds" action="set" image="clouds02" duration="0" />
+            <do asset="ambience" action="set" track="birds" />
+            <wait />
+            <do asset="backgrounds" action="show" duration="500" />
+            <do asset="tb_main" action="show" effect="slide" direction="bottom" easing="easeOutBounce"  />
+            <wait />
+            <wait duration="1000" />
+            <do asset="tb_main" action="hide" effect="slide" direction="bottom" />
+            <wait />
+            <do asset="tb_main" action="show" effect="slide" direction="bottom" easing="easeOutBounce" />
+            <line s="n">
+                To start, click on the screen or press {b}space{/b} / {b}right arrow{/b} key.
+            </line>
+            <do asset="tb_main" action="hide" effect="slide" direction="bottom" />
+            <wait />
+            <do asset="tb_main" action="show" effect="slide" direction="bottom" easing="easeOutBounce" />
+            <line s="n" stop="false">
+                What are you interested in?
+            </line>
+            <choice>
+                <option scene="demos">View demos</option>
+            </choice>
+        </scene>
+        <scene id="demos">
+            <line s="n" stop="false">Please choose.</line>
+            <choice>
+                <option scene="animation">Background animation example</option>
+                <option scene="change_bg">Changing images</option>
+                <option scene="restart">Back to main menu</option>
+            </choice>
+        </scene>
+        <scene id="change_bg">
+            <line s="n" stop="false">Please choose.</line>
+            <choice>
+                <option scene="change_bg_start">Start changing images</option>
+                <option scene="change_bg_stop">Stop changing images</option>
+                <option scene="demos">Back to demos</option>
+                <option scene="restart">Back to main menu</option>
+            </choice>
+        </scene>
+        <scene id="change_bg_start">
+            <do asset="bgchanger" action="start" />
+            <goto scene="change_bg" />
+        </scene>
+        <scene id="change_bg_stop">
+            <do asset="bgchanger" action="stop" />
+            <goto scene="change_bg" />
+        </scene>
+        <scene id="animation">
+            <do asset="tb_main" action="show" duration="500" />
+            <do asset="anim" action="start" />
+            <line s="n">To stop, click again.</line>
+            <do asset="anim" action="stop" />
+            <choice>
+                <option scene="animation">Restart animation</option>
+                <option scene="demos">Back to demos</option>
+                <option scene="restart">Back to main menu</option>
+            </choice>
+        </scene>
+        <scene id="restart">
+            <do asset="backgrounds" action="hide" duration="1000" />
+            <wait />
+            <do asset="tb_main" action="clear" />
+            <do asset="backgrounds" action="move" x="0" y="0" duration="0" />
+            <do asset="sounds" action="stop" />
+            <wait />
+            <goto scene="start" />
+        </scene>
+    </scenes>
+</ws>
