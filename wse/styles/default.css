@@ -50,11 +50,11 @@ html, body
 }
 
 * 
-{
-    box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    -webkit-box-sizing: border-box;
-    -o-box-sizing: border-box;
+* {
+*    box-sizing: border-box;
+*    -moz-box-sizing: border-box;
+*    -webkit-box-sizing: border-box;
+*    -o-box-sizing: border-box;
 }
 
 b
@@ -105,15 +105,15 @@ img
     background: rgba(0, 0, 0, 0.8);
     padding: 10px;
     box-shadow: 10px 10px 40px black;
-/*     left: 10px; */
+    /*     left: 10px; */
     border: 1px solid gray;
     border: 1px solid rgba(200, 200, 200, 0.8);
     border-left: 1px solid white;
     border-top: 1px solid white;
     border-left: 1px solid rgba(255, 255, 255, 0.8);
     border-top: 1px solid  rgba(255, 255, 255, 0.8);
-/*     width: 620px; */
-/*     height: 100px; */
+    /*     width: 620px; */
+    /*     height: 100px; */
     -webkit-user-select: none;
     -khtml-user-select: none;
     -moz-user-select: none;
@@ -121,15 +121,15 @@ img
     user-select: none;
 }
 /*
-#MainTb
-{
-    top: 250px;
-}*/
+ * #MainTb
+ * {
+ *    top: 250px;
+ }*/
 
 #NvlTb
 {
-/*     height: 340px; */
-/*     top: 10px; */
+    /*     height: 340px; */
+    /*     top: 10px; */
 }
 
 #NvlTb p
@@ -422,6 +422,5 @@ img
     background: black;
     color: white;
 }
-
 
 
